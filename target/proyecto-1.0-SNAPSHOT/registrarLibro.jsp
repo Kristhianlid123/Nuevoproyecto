@@ -27,6 +27,25 @@
             <h2>Registrar Libro</h2>
 
             <hr>
+            <%
+
+                String mensaje = (String) request.getAttribute("mensaje");
+
+                if (mensaje != null) {
+
+            %>
+
+            <div class="alert alert-danger">
+
+                <%= mensaje%>
+
+            </div>
+
+            <%
+
+                }
+
+            %>
 
             <form action="SvRegistrarLibro" method="POST">
 

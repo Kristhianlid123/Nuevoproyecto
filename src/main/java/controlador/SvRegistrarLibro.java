@@ -32,15 +32,25 @@ public class SvRegistrarLibro extends HttpServlet {
 
         LibroDAO dao = new LibroDAO();
 
-        boolean registrado = dao.registrarLibro(libro);
+        if (dao.existeLibro(titulo, autor)) {
 
-        if (registrado) {
+            request.setAttribute("mensaje", "El libro ya se encuentra registrado.");
 
-            response.sendRedirect("SvLibros");
+            request.getRequestDispatcher("registrarLibro.jsp").forward(request, response);
 
         } else {
 
-            response.getWriter().println("No fue posible registrar el libro.");
+            boolean registrado = dao.registrarLibro(libro);
+
+            if (registrado) {
+
+                response.sendRedirect("SvLibros");
+
+            } else {
+
+                response.getWriter().println("No fue posible registrar el libro.");
+
+            }
 
         }
 

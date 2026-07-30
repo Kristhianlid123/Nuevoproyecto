@@ -105,6 +105,7 @@
                         <th>Título</th>
                         <th>Autor</th>
                         <th>Estado</th>
+                        <th>Acciones</th>
 
                     </tr>
 
@@ -141,6 +142,18 @@
                         <td><%= libro.getAutor()%></td>
 
                         <td><%= libro.getEstado()%></td>
+                        
+                        <td>
+
+                            <a
+                                href="SvEditarLibro?id=<%= libro.getId_libro()%>"
+                                class="btn btn-warning btn-sm">
+
+                                Editar
+
+                            </a>
+
+                        </td>
 
                     </tr>
 

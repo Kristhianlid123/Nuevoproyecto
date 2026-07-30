@@ -80,5 +80,94 @@ public class LibroDAO {
         }
 
     }
+    
+    public boolean existeLibro(String titulo, String autor) {
+
+        String consulta = "SELECT * FROM libros WHERE titulo = ? AND autor = ?";
+
+        try (
+                Connection cn = new ConexionMysql().establecerConexion(); PreparedStatement ps = cn.prepareStatement(consulta);) {
+
+            ps.setString(1, titulo);
+            ps.setString(2, autor);
+
+            ResultSet rs = ps.executeQuery();
+
+            return rs.next();
+
+        } catch (SQLException e) {
+
+            System.out.println("Error al verificar el libro.");
+            e.printStackTrace();
+
+        }
+
+        return false;
+
+    }
+    
+    public Libro obtenerLibro(int id) {
+
+        Libro libro = null;
+
+        String consulta = "SELECT * FROM libros WHERE id_libro = ?";
+
+        try (
+                Connection cn = new ConexionMysql().establecerConexion(); PreparedStatement ps = cn.prepareStatement(consulta);) {
+
+            ps.setInt(1, id);
+
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+
+                libro = new Libro();
+
+                libro.setId_libro(rs.getInt("id_libro"));
+                libro.setTitulo(rs.getString("titulo"));
+                libro.setAutor(rs.getString("autor"));
+                libro.setEstado(rs.getString("estado"));
+
+            }
+
+            rs.close();
+
+        } catch (SQLException e) {
+
+            System.out.println("Error al obtener el libro.");
+            e.printStackTrace();
+
+        }
+
+        return libro;
+
+    }
+    
+    public boolean actualizarLibro(Libro libro) {
+
+        String consulta = "UPDATE libros SET titulo = ?, autor = ?, estado = ? WHERE id_libro = ?";
+
+        try (
+                Connection cn = new ConexionMysql().establecerConexion(); PreparedStatement ps = cn.prepareStatement(consulta);) {
+
+            ps.setString(1, libro.getTitulo());
+            ps.setString(2, libro.getAutor());
+            ps.setString(3, libro.getEstado());
+            ps.setInt(4, libro.getId_libro());
+
+            int filas = ps.executeUpdate();
+
+            return filas > 0;
+
+        } catch (SQLException e) {
+
+            System.out.println("Error al actualizar el libro.");
+            e.printStackTrace();
+
+        }
+
+        return false;
+
+    }
 
 }
