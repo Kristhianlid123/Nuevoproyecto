@@ -31,7 +31,13 @@ public class SvLibros extends HttpServlet {
 
         LibroDAO dao = new LibroDAO();
 
-        ArrayList<Libro> listaLibros = dao.listarLibros(buscar);
+        ArrayList<Libro> listaLibros = new ArrayList<>();
+
+        if (!buscar.trim().isEmpty()) {
+
+            listaLibros = dao.listarLibros(buscar);
+
+        }
 
         request.setAttribute("listaLibros", listaLibros);
         request.setAttribute("buscar", buscar);

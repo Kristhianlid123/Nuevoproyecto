@@ -16,113 +16,135 @@
 
 <html>
 
-<head>
+    <head>
 
-    <meta charset="UTF-8">
+        <meta charset="UTF-8">
 
-    <title>Libros</title>
+        <title>Libros</title>
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
 
-</head>
+    </head>
 
-<body>
+    <body>
 
-    <div class="container mt-5">
+        <div class="container mt-5">
 
-        <h2>Listado de Libros</h2>
-        
-        <form action="SvLibros" method="GET" class="mb-4">
+            <h2>Listado de Libros</h2>
 
-            <div class="row">
+            <form action="SvLibros" method="GET" class="mb-4">
 
-                <div class="col-md-8">
+                <div class="row">
 
-                    <input
-                        type="text"
-                        class="form-control"
-                        name="buscar"
-                        placeholder="Buscar por título o autor"
-                        value="<%= request.getAttribute("buscar") != null ? request.getAttribute("buscar") : ""%>">
+                    <div class="col-md-8">
+
+                        <input
+                            type="text"
+                            class="form-control"
+                            name="buscar"
+                            placeholder="Buscar por título o autor"
+                            value="<%= request.getAttribute("buscar") != null ? request.getAttribute("buscar") : ""%>">
+
+                    </div>
+
+                    <div class="col-md-2">
+
+                        <button
+                            type="submit"
+                            class="btn btn-primary w-100">
+
+                            Buscar
+
+                        </button>
+
+                    </div>
+
+                    <div class="col-md-2">
+
+                        <a
+                            href="registrarLibro.jsp"
+                            class="btn btn-success w-100">
+
+                            Registrar
+
+                        </a>
+
+                    </div>
 
                 </div>
 
-                <div class="col-md-2">
+            </form>
 
-                    <button
-                        type="submit"
-                        class="btn btn-primary w-100">
+            <hr>
 
-                        Buscar
+            <%
+                if (buscar != null && !buscar.isEmpty()) {
+            %>
 
-                    </button>
+            <table class="table table-bordered table-hover">
 
-                </div>
+                <thead class="table-dark">
 
-                <div class="col-md-2">
+                    <tr>
 
-                    <a
-                        href="registrarLibro.jsp"
-                        class="btn btn-success w-100">
+                        <th>ID</th>
+                        <th>Título</th>
+                        <th>Autor</th>
+                        <th>Estado</th>
 
-                        Registrar
+                    </tr>
 
-                    </a>
+                </thead>
 
-                </div>
+                <tbody>
 
-            </div>
+                    <%
+                        if (listaLibros.isEmpty()) {
+                    %>
 
-        </form>
+                    <tr>
 
-        <hr>
+                        <td colspan="4" class="text-center">
 
-        <table class="table table-bordered table-hover">
+                            No se encontraron libros.
 
-            <thead class="table-dark">
+                        </td>
 
-                <tr>
+                    </tr>
 
-                    <th>ID</th>
-                    <th>Título</th>
-                    <th>Autor</th>
-                    <th>Estado</th>
-
-                </tr>
-
-            </thead>
-
-            <tbody>
-
-                <%
-                    if (listaLibros != null) {
+                    <%
+                    } else {
 
                         for (Libro libro : listaLibros) {
-                %>
+                    %>
 
-                <tr>
+                    <tr>
 
-                    <td><%= libro.getId_libro()%></td>
+                        <td><%= libro.getId_libro()%></td>
 
-                    <td><%= libro.getTitulo()%></td>
+                        <td><%= libro.getTitulo()%></td>
 
-                    <td><%= libro.getAutor()%></td>
+                        <td><%= libro.getAutor()%></td>
 
-                    <td><%= libro.getEstado()%></td>
+                        <td><%= libro.getEstado()%></td>
 
-                </tr>
+                    </tr>
 
-                <%
+                    <%
+                            }
                         }
-                    }
-                %>
+                    %>
 
-            </tbody>
+                </tbody>
 
-        </table>
+            </table>
 
-    </div>
+            <%
+                }
+            %>
 
-</body>
+        </div>
+
+    </body>
 
 </html>
