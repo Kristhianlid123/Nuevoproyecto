@@ -31,6 +31,48 @@
     <div class="container mt-5">
 
         <h2>Listado de Libros</h2>
+        
+        <form action="SvLibros" method="GET" class="mb-4">
+
+            <div class="row">
+
+                <div class="col-md-8">
+
+                    <input
+                        type="text"
+                        class="form-control"
+                        name="buscar"
+                        placeholder="Buscar por título o autor">
+
+                </div>
+
+                <div class="col-md-2">
+
+                    <button
+                        type="submit"
+                        class="btn btn-primary w-100">
+
+                        Buscar
+
+                    </button>
+
+                </div>
+
+                <div class="col-md-2">
+
+                    <a
+                        href="registrarLibro.jsp"
+                        class="btn btn-success w-100">
+
+                        Registrar
+
+                    </a>
+
+                </div>
+
+            </div>
+
+        </form>
 
         <hr>
 
