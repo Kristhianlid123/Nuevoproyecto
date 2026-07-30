@@ -13,19 +13,21 @@ import modelos.Libro;
 
 public class LibroDAO {
 
-    public ArrayList<Libro> listarLibros() {
+    public ArrayList<Libro> listarLibros(String buscar) {
 
         ArrayList<Libro> listaLibros = new ArrayList<>();
 
-        String consulta = "SELECT * FROM libros";
+        String consulta = "SELECT * FROM libros WHERE titulo LIKE ? OR autor LIKE ?";
 
         try (
+                Connection cn = new ConexionMysql().establecerConexion(); 
+                PreparedStatement ps = cn.prepareStatement(consulta);
+            ) {
+            
+            ps.setString(1, "%" + buscar + "%");
+            ps.setString(2, "%" + buscar + "%");
 
-            Connection cn = new ConexionMysql().establecerConexion();
-            PreparedStatement ps = cn.prepareStatement(consulta);
             ResultSet rs = ps.executeQuery();
-
-        ) {
 
             while (rs.next()) {
 
@@ -40,9 +42,11 @@ public class LibroDAO {
 
             }
 
+            rs.close();
+
         } catch (SQLException e) {
 
-            System.out.println("Error al listar libros.");
+            System.out.println("Error al buscar libros.");
             e.printStackTrace();
 
         }
