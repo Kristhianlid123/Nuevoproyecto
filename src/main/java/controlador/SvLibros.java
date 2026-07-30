@@ -23,11 +23,18 @@ public class SvLibros extends HttpServlet {
 
         System.out.println("Entró al Servlet de Libros");
 
+        String buscar = request.getParameter("buscar");
+
+        if (buscar == null) {
+            buscar = "";
+        }
+
         LibroDAO dao = new LibroDAO();
 
-        ArrayList<Libro> listaLibros = dao.listarLibros();
+        ArrayList<Libro> listaLibros = dao.listarLibros(buscar);
 
         request.setAttribute("listaLibros", listaLibros);
+        request.setAttribute("buscar", buscar);
 
         request.getRequestDispatcher("libros.jsp").forward(request, response);
 

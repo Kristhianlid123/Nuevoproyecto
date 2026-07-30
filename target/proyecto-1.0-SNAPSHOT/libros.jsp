@@ -42,7 +42,8 @@
                         type="text"
                         class="form-control"
                         name="buscar"
-                        placeholder="Buscar por título o autor">
+                        placeholder="Buscar por título o autor"
+                        value="<%= request.getAttribute("buscar") != null ? request.getAttribute("buscar") : ""%>">
 
                 </div>
 
