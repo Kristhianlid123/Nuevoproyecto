@@ -34,7 +34,7 @@ public class SvLogin extends HttpServlet {
         // Verificar si existe
         if (usuarioEncontrado != null) {
 
-            request.setAttribute("usuario", usuarioEncontrado);
+            request.getSession().setAttribute("usuario", usuarioEncontrado);
 
             request.getRequestDispatcher("menu.jsp").forward(request, response);
 

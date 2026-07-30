@@ -8,7 +8,7 @@
 <%@page import="modelos.Usuario"%>
 
 <%
-    Usuario usuario = (Usuario) request.getAttribute("usuario");
+    Usuario usuario = (Usuario) session.getAttribute("usuario");
 %>
 
 <!DOCTYPE html>
