@@ -54,5 +54,31 @@ public class LibroDAO {
         return listaLibros;
 
     }
+    
+    public boolean registrarLibro(Libro libro) {
+
+        String consulta = "INSERT INTO libros(titulo, autor, estado) VALUES(?, ?, ?)";
+
+        try (
+                Connection cn = new ConexionMysql().establecerConexion(); PreparedStatement ps = cn.prepareStatement(consulta);) {
+
+            ps.setString(1, libro.getTitulo());
+            ps.setString(2, libro.getAutor());
+            ps.setString(3, libro.getEstado());
+
+            ps.executeUpdate();
+
+            return true;
+
+        } catch (SQLException e) {
+
+            System.out.println("Error al registrar el libro.");
+            e.printStackTrace();
+
+            return false;
+
+        }
+
+    }
 
 }

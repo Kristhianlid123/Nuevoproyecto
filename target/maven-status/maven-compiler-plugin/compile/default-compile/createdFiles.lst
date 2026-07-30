@@ -1,5 +1,6 @@
 dao\LibroDAO.class
 com\mycompany\proyecto\resources\JakartaEE8Resource.class
+controlador\SvRegistrarLibro.class
 dao\ProbarConexion.class
 modelos\Usuario.class
 dao\ConexionMysql.class

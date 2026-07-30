@@ -10,6 +10,8 @@
 
 <%
     ArrayList<Libro> listaLibros = (ArrayList<Libro>) request.getAttribute("listaLibros");
+
+    String buscar = (String) request.getAttribute("buscar");
 %>
 
 <!DOCTYPE html>
@@ -36,7 +38,7 @@
 
                 <div class="row">
 
-                    <div class="col-md-8">
+                    <div class="col-md-6">
 
                         <input
                             type="text"
@@ -66,6 +68,18 @@
                             class="btn btn-success w-100">
 
                             Registrar
+
+                        </a>
+
+                    </div>
+
+                    <div class="col-md-2">
+
+                        <a
+                            href="menu.jsp"
+                            class="btn btn-secondary w-100">
+
+                            Menú
 
                         </a>
 
