@@ -1,0 +1,10 @@
+dao\LibroDAO.class
+com\mycompany\proyecto\resources\JakartaEE8Resource.class
+dao\ProbarConexion.class
+modelos\Usuario.class
+dao\ConexionMysql.class
+dao\UsuarioDAO.class
+modelos\Libro.class
+controlador\SvLibros.class
+com\mycompany\proyecto\JakartaRestConfiguration.class
+controlador\SvLogin.class
