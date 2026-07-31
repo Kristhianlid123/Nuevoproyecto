@@ -68,6 +68,45 @@ public class LibroDAO {
 
     }
     
+    public ArrayList<Libro> listarLibrosDisponibles() {
+
+        ArrayList<Libro> listaLibros = new ArrayList<>();
+
+        String consulta = "SELECT * FROM libros "
+                + "WHERE activo = 1 AND estado = 'Disponible'";
+
+        try (
+                Connection cn = new ConexionMysql().establecerConexion(); PreparedStatement ps = cn.prepareStatement(consulta);) {
+
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+
+                Libro libro = new Libro();
+
+                libro.setId_libro(rs.getInt("id_libro"));
+                libro.setTitulo(rs.getString("titulo"));
+                libro.setAutor(rs.getString("autor"));
+                libro.setEstado(rs.getString("estado"));
+                libro.setActivo(rs.getBoolean("activo"));
+
+                listaLibros.add(libro);
+
+            }
+
+            rs.close();
+
+        } catch (SQLException e) {
+
+            System.out.println("Error al listar libros disponibles.");
+            e.printStackTrace();
+
+        }
+
+        return listaLibros;
+
+    }
+    
     public boolean registrarLibro(Libro libro) {
 
         String consulta = "INSERT INTO libros (titulo, autor, estado, activo) VALUES (?, ?, ?, ?)";

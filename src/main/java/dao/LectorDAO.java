@@ -246,5 +246,45 @@ public class LectorDAO {
         return false;
 
     }
+    
+    public Lector buscarPorDocumento(String documento) {
+
+        Lector lector = null;
+
+        String consulta = "SELECT * FROM lectores WHERE documento = ? AND activo = 1";
+
+        try (
+                Connection cn = new ConexionMysql().establecerConexion(); PreparedStatement ps = cn.prepareStatement(consulta);) {
+
+            ps.setString(1, documento);
+
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+
+                lector = new Lector();
+
+                lector.setId_lector(rs.getInt("id_lector"));
+                lector.setDocumento(rs.getString("documento"));
+                lector.setNombre(rs.getString("nombre"));
+                lector.setTelefono(rs.getString("telefono"));
+                lector.setCorreo(rs.getString("correo"));
+                lector.setDireccion(rs.getString("direccion"));
+                lector.setActivo(rs.getBoolean("activo"));
+
+            }
+
+            rs.close();
+
+        } catch (SQLException e) {
+
+            System.out.println("Error al buscar lector.");
+            e.printStackTrace();
+
+        }
+
+        return lector;
+
+    }
 
 }

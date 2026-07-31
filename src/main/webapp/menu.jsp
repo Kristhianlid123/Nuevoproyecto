@@ -288,9 +288,9 @@
                         Registrar préstamos de libros
                     </div>
 
-                    <button class="btn btn-primary">
+                    <a href="SvPrestamos" class="btn btn-primary">
                         Entrar
-                    </button>
+                    </a>
 
                 </div>
 
@@ -350,9 +350,9 @@
                         Registrar préstamos de libros
                     </div>
 
-                    <button class="btn btn-primary">
+                    <a href="SvPrestamos" class="btn btn-primary">
                         Entrar
-                    </button>
+                    </a>
 
                 </div>
 
