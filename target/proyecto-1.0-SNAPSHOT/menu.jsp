@@ -265,7 +265,7 @@
                     </div>
 
                     <div class="descripcion">
-                        Registrar, consultar y modificar libros.
+                        Registrar, consultar y modificar libros
                     </div>
 
                     <a href="SvLibros" class="btn btn-primary">
@@ -285,7 +285,7 @@
                     </div>
 
                     <div class="descripcion">
-                        Registrar préstamos de libros.
+                        Registrar préstamos de libros
                     </div>
 
                     <button class="btn btn-primary">
@@ -303,7 +303,7 @@
                     </div>
 
                     <div class="descripcion">
-                        Registrar devoluciones.
+                        Registrar devoluciones
                     </div>
 
                     <button class="btn btn-primary">
@@ -317,16 +317,16 @@
                     <img src="img/usuarios.png" class="imagen">
 
                     <div class="titulo">
-                        Usuarios
+                        Lectores
                     </div>
 
                     <div class="descripcion">
-                        Administrar usuarios del sistema.
+                        Administrar los lectores de la biblioteca
                     </div>
 
-                    <button class="btn btn-primary">
+                    <a href="SvLectores" class="btn btn-primary">
                         Entrar
-                    </button>
+                    </a>
 
                 </div>
 
@@ -347,7 +347,7 @@
                     </div>
 
                     <div class="descripcion">
-                        Registrar préstamos de libros.
+                        Registrar préstamos de libros
                     </div>
 
                     <button class="btn btn-primary">
@@ -365,7 +365,7 @@
                     </div>
 
                     <div class="descripcion">
-                        Registrar devoluciones.
+                        Registrar devoluciones
                     </div>
 
                     <button class="btn btn-primary">
