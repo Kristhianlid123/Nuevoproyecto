@@ -33,6 +33,49 @@
         <div class="container mt-5">
 
             <h2>Listado de Libros</h2>
+            
+            <%
+                String mensaje = (String) request.getAttribute("mensaje");
+
+                if (mensaje != null) {
+
+                    String texto = "";
+
+                    switch (mensaje) {
+
+                        case "registrado":
+                            texto = "Libro registrado correctamente.";
+                            break;
+
+                        case "actualizado":
+                            texto = "Libro actualizado correctamente.";
+                            break;
+
+                        case "retirado":
+                            texto = "Libro retirado correctamente.";
+                            break;
+
+                        case "reincorporado":
+                            texto = "Libro reincorporado correctamente.";
+                            break;
+
+                    }
+            %>
+
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+
+                <%= texto%>
+
+                <button type="button"
+                        class="btn-close"
+                        data-bs-dismiss="alert">
+                </button>
+
+            </div>
+
+            <%
+                }
+            %>
 
             <form action="SvLibros" method="GET" class="mb-4">
 
@@ -183,27 +226,7 @@
 
                             </a>
 
-                            <%
-
-                                String filtroActual = (String) request.getAttribute("filtro");
-
-                                if ("retirados".equals(filtroActual)) {
-
-                            %>
-
-                            <a href="SvReincorporarLibro?id=<%= libro.getId_libro()%>"
-                               class="btn btn-success btn-sm"
-                               onclick="return confirm('¿Desea reincorporar este libro?');">
-
-                                Reincorporar
-
-                            </a>
-
-                            <%
-
-                            } else {
-
-                            %>
+                            <% if (libro.isActivo()) {%>
 
                             <a href="SvRetirarLibro?id=<%= libro.getId_libro()%>"
                                class="btn btn-danger btn-sm"
@@ -213,11 +236,17 @@
 
                             </a>
 
-                            <%
+                            <% } else {%>
 
-                                }
+                            <a href="SvReincorporarLibro?id=<%= libro.getId_libro()%>"
+                               class="btn btn-success btn-sm"
+                               onclick="return confirm('¿Desea reincorporar este libro?');">
 
-                            %>
+                                Reincorporar
+
+                            </a>
+
+                            <% } %>
 
                         </td>
 
@@ -237,6 +266,8 @@
             %>
 
         </div>
+        
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
 
     </body>
 

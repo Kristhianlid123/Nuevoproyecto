@@ -25,14 +25,16 @@ public class SvLibros extends HttpServlet {
 
         String buscar = request.getParameter("buscar");
         String filtro = request.getParameter("filtro");
+        String mensaje = request.getParameter("mensaje");
 
         if (buscar == null) {
             buscar = "";
         }
 
         if (filtro == null) {
-            filtro = "activos";
+            filtro = "todos";
         }
+        
 
         LibroDAO dao = new LibroDAO();
 
@@ -41,6 +43,9 @@ public class SvLibros extends HttpServlet {
         request.setAttribute("listaLibros", listaLibros);
         request.setAttribute("buscar", buscar);
         request.setAttribute("filtro", filtro);
+        request.setAttribute("mensaje", mensaje);
+
+        request.setAttribute("mensaje", mensaje);
 
         request.getRequestDispatcher("libros.jsp").forward(request, response);
 

@@ -38,7 +38,7 @@ public class SvActualizarLibro extends HttpServlet {
 
         if (actualizado) {
 
-            response.sendRedirect("SvLibros");
+            response.sendRedirect("SvLibros?mensaje=actualizado");
 
         } else {
 

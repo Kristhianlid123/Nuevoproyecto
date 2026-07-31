@@ -25,7 +25,7 @@ public class SvReincorporarLibro extends HttpServlet {
 
         dao.reincorporarLibro(id);
 
-        response.sendRedirect("SvLibros?filtro=retirados");
+        response.sendRedirect("SvLibros?mensaje=reincorporado");
 
     }
 

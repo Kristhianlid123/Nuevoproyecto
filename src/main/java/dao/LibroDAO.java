@@ -49,6 +49,7 @@ public class LibroDAO {
                 libro.setTitulo(rs.getString("titulo"));
                 libro.setAutor(rs.getString("autor"));
                 libro.setEstado(rs.getString("estado"));
+                libro.setActivo(rs.getBoolean("activo"));
 
                 listaLibros.add(libro);
 
@@ -140,6 +141,7 @@ public class LibroDAO {
                 libro.setTitulo(rs.getString("titulo"));
                 libro.setAutor(rs.getString("autor"));
                 libro.setEstado(rs.getString("estado"));
+                libro.setActivo(rs.getBoolean("activo"));
 
             }
 

@@ -44,7 +44,7 @@ public class SvRegistrarLibro extends HttpServlet {
 
             if (registrado) {
 
-                response.sendRedirect("SvLibros");
+                response.sendRedirect("SvLibros?mensaje=registrado");
 
             } else {
 

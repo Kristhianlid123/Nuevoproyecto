@@ -29,6 +29,8 @@ public class SvEditarLibro extends HttpServlet {
         request.setAttribute("libro", libro);
 
         request.getRequestDispatcher("editarLibro.jsp").forward(request, response);
+        
+        
 
     }
 

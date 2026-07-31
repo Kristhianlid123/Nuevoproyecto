@@ -25,7 +25,7 @@ public class SvRetirarLibro extends HttpServlet {
 
         dao.retirarLibro(id);
 
-        response.sendRedirect("SvLibros");
+        response.sendRedirect("SvLibros?mensaje=retirado");
 
     }
 
