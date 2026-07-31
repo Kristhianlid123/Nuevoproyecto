@@ -13,17 +13,29 @@ import modelos.Libro;
 
 public class LibroDAO {
 
-    public ArrayList<Libro> listarLibros(String buscar) {
+    public ArrayList<Libro> listarLibros(String buscar, String filtro) {
 
         ArrayList<Libro> listaLibros = new ArrayList<>();
 
-        String consulta = "SELECT * FROM libros WHERE titulo LIKE ? OR autor LIKE ?";
+        String consulta = "";
+
+        if (filtro.equals("activos")) {
+
+            consulta = "SELECT * FROM libros WHERE activo = 1 AND (titulo LIKE ? OR autor LIKE ?)";
+
+        } else if (filtro.equals("retirados")) {
+
+            consulta = "SELECT * FROM libros WHERE activo = 0 AND (titulo LIKE ? OR autor LIKE ?)";
+
+        } else {
+
+            consulta = "SELECT * FROM libros WHERE titulo LIKE ? OR autor LIKE ?";
+
+        }
 
         try (
-                Connection cn = new ConexionMysql().establecerConexion(); 
-                PreparedStatement ps = cn.prepareStatement(consulta);
-            ) {
-            
+                Connection cn = new ConexionMysql().establecerConexion(); PreparedStatement ps = cn.prepareStatement(consulta);) {
+
             ps.setString(1, "%" + buscar + "%");
             ps.setString(2, "%" + buscar + "%");
 
@@ -46,7 +58,7 @@ public class LibroDAO {
 
         } catch (SQLException e) {
 
-            System.out.println("Error al buscar libros.");
+            System.out.println("Error al listar libros.");
             e.printStackTrace();
 
         }
@@ -57,7 +69,7 @@ public class LibroDAO {
     
     public boolean registrarLibro(Libro libro) {
 
-        String consulta = "INSERT INTO libros(titulo, autor, estado) VALUES(?, ?, ?)";
+        String consulta = "INSERT INTO libros (titulo, autor, estado, activo) VALUES (?, ?, ?, ?)";
 
         try (
                 Connection cn = new ConexionMysql().establecerConexion(); PreparedStatement ps = cn.prepareStatement(consulta);) {
@@ -65,6 +77,7 @@ public class LibroDAO {
             ps.setString(1, libro.getTitulo());
             ps.setString(2, libro.getAutor());
             ps.setString(3, libro.getEstado());
+            ps.setBoolean(4, true);
 
             ps.executeUpdate();
 
@@ -162,6 +175,54 @@ public class LibroDAO {
         } catch (SQLException e) {
 
             System.out.println("Error al actualizar el libro.");
+            e.printStackTrace();
+
+        }
+
+        return false;
+
+    }
+    
+    public boolean retirarLibro(int id) {
+
+        String consulta = "UPDATE libros SET activo = 0 WHERE id_libro = ?";
+
+        try (
+                Connection cn = new ConexionMysql().establecerConexion(); PreparedStatement ps = cn.prepareStatement(consulta);) {
+
+            ps.setInt(1, id);
+
+            int filas = ps.executeUpdate();
+
+            return filas > 0;
+
+        } catch (SQLException e) {
+
+            System.out.println("Error al retirar el libro.");
+            e.printStackTrace();
+
+        }
+
+        return false;
+
+    }
+    
+    public boolean reincorporarLibro(int id) {
+
+        String consulta = "UPDATE libros SET activo = 1 WHERE id_libro = ?";
+
+        try (
+                Connection cn = new ConexionMysql().establecerConexion(); PreparedStatement ps = cn.prepareStatement(consulta);) {
+
+            ps.setInt(1, id);
+
+            int filas = ps.executeUpdate();
+
+            return filas > 0;
+
+        } catch (SQLException e) {
+
+            System.out.println("Error al reincorporar el libro.");
             e.printStackTrace();
 
         }

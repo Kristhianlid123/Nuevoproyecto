@@ -24,23 +24,23 @@ public class SvLibros extends HttpServlet {
         System.out.println("Entró al Servlet de Libros");
 
         String buscar = request.getParameter("buscar");
+        String filtro = request.getParameter("filtro");
 
         if (buscar == null) {
             buscar = "";
         }
 
+        if (filtro == null) {
+            filtro = "activos";
+        }
+
         LibroDAO dao = new LibroDAO();
 
-        ArrayList<Libro> listaLibros = new ArrayList<>();
-
-        if (!buscar.trim().isEmpty()) {
-
-            listaLibros = dao.listarLibros(buscar);
-
-        }
+        ArrayList<Libro> listaLibros = dao.listarLibros(buscar, filtro);
 
         request.setAttribute("listaLibros", listaLibros);
         request.setAttribute("buscar", buscar);
+        request.setAttribute("filtro", filtro);
 
         request.getRequestDispatcher("libros.jsp").forward(request, response);
 

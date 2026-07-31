@@ -38,7 +38,7 @@
 
                 <div class="row">
 
-                    <div class="col-md-6">
+                    <div class="col-md-4">
 
                         <input
                             type="text"
@@ -58,6 +58,37 @@
                             Buscar
 
                         </button>
+
+                    </div>
+
+                    <div class="col-md-2">
+
+                        <select
+                            name="filtro"
+                            class="form-select">
+
+                            <option value="activos"
+                                    <%= "activos".equals(request.getAttribute("filtro")) ? "selected" : ""%>>
+
+                                Activos
+
+                            </option>
+
+                            <option value="retirados"
+                                    <%= "retirados".equals(request.getAttribute("filtro")) ? "selected" : ""%>>
+
+                                Retirados
+
+                            </option>
+
+                            <option value="todos"
+                                    <%= "todos".equals(request.getAttribute("filtro")) ? "selected" : ""%>>
+
+                                Todos
+
+                            </option>
+
+                        </select>
 
                     </div>
 
@@ -142,16 +173,51 @@
                         <td><%= libro.getAutor()%></td>
 
                         <td><%= libro.getEstado()%></td>
-                        
+
                         <td>
 
-                            <a
-                                href="SvEditarLibro?id=<%= libro.getId_libro()%>"
-                                class="btn btn-warning btn-sm">
+                            <a href="SvEditarLibro?id=<%= libro.getId_libro()%>"
+                               class="btn btn-warning btn-sm">
 
                                 Editar
 
                             </a>
+
+                            <%
+
+                                String filtroActual = (String) request.getAttribute("filtro");
+
+                                if ("retirados".equals(filtroActual)) {
+
+                            %>
+
+                            <a href="SvReincorporarLibro?id=<%= libro.getId_libro()%>"
+                               class="btn btn-success btn-sm"
+                               onclick="return confirm('¿Desea reincorporar este libro?');">
+
+                                Reincorporar
+
+                            </a>
+
+                            <%
+
+                            } else {
+
+                            %>
+
+                            <a href="SvRetirarLibro?id=<%= libro.getId_libro()%>"
+                               class="btn btn-danger btn-sm"
+                               onclick="return confirm('¿Desea retirar este libro?');">
+
+                                Retirar
+
+                            </a>
+
+                            <%
+
+                                }
+
+                            %>
 
                         </td>
 
