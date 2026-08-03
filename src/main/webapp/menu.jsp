@@ -24,6 +24,13 @@
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
 
         <style>
+            
+            
+            html, body{
+                height: 100%;
+                margin: 0;
+            }
+
 
             *{
 
@@ -34,10 +41,11 @@
             }
 
             body{
-
+                display:flex;
+                flex-direction:column;
+                min-height:100vh;
                 background:#ECE9F8;
                 font-family:Arial, Helvetica, sans-serif;
-
             }
 
             .encabezado{
@@ -47,8 +55,8 @@
                 padding:20px;
 
                 display:flex;
-                justify-content:space-between;
                 align-items:center;
+                gap:20px;
 
             }
 
@@ -106,6 +114,7 @@
                 width:90%;
                 margin:auto;
                 margin-top:35px;
+                flex: 1;
 
             }
 
@@ -168,13 +177,11 @@
             }
 
             .pie{
-
-                margin-top:60px;
-                background:#4b0aa8;
-                color:white;
-                text-align:center;
-                padding:18px;
-
+                background: #5b12b6;
+                color: white;
+                text-align: center;
+                padding: 20px;
+                margin-top: auto;
             }
 
         </style>
@@ -207,20 +214,11 @@
 
             </div>
 
-            <div class="buscar">
-
-                <input
-                    type="text"
-                    class="form-control"
-                    placeholder="Buscar libros">
-
-            </div>
+            
 
         </div>
 
         <div class="menu">
-
-            <a href="#">Inicio</a>
 
             <a href="#">Perfil</a>
 
@@ -368,9 +366,9 @@
                         Registrar devoluciones
                     </div>
 
-                    <button class="btn btn-primary">
+                    <a href="SvDevoluciones" class="btn btn-primary">
                         Entrar
-                    </button>
+                    </a>
 
                 </div>
 
@@ -382,7 +380,7 @@
 
         </div>
 
-    </div>
+   
 
     <div class="pie">
 

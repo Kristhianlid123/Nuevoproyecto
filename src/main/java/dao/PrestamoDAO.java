@@ -90,7 +90,8 @@ public class PrestamoDAO {
     public boolean devolverPrestamo(int idPrestamo) {
 
         String consulta = "UPDATE prestamos "
-                + "SET estado = 'Devuelto' "
+                + "SET estado = 'Devuelto', "
+                + "fecha_devolucion_real = CURDATE() "
                 + "WHERE id_prestamo = ?";
 
         try (
