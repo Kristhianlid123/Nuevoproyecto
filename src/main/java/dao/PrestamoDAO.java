@@ -13,45 +13,33 @@ public class PrestamoDAO {
 
     public boolean registrarPrestamo(Prestamo prestamo) {
 
-        String consultaPrestamo
-                = "INSERT INTO prestamos (id_lector, id_libro, fecha_prestamo, fecha_devolucion, estado) "
+        String consulta = "INSERT INTO prestamos "
+                + "(id_lector, id_libro, fecha_prestamo, fecha_devolucion, estado) "
                 + "VALUES (?, ?, ?, ?, ?)";
 
-        String consultaLibro
-                = "UPDATE libros SET estado = 'Prestado' WHERE id_libro = ?";
-
         try (
-                Connection cn = new ConexionMysql().establecerConexion()) {
+                Connection cn = new ConexionMysql().establecerConexion();
+                PreparedStatement ps = cn.prepareStatement(consulta);) {
 
-            cn.setAutoCommit(false);
+            ps.setInt(1, prestamo.getId_lector());
+            ps.setInt(2, prestamo.getId_libro());
+            ps.setDate(3, prestamo.getFecha_prestamo());
+            ps.setDate(4, prestamo.getFecha_devolucion());
+            ps.setString(5, prestamo.getEstado());
 
-            PreparedStatement psPrestamo = cn.prepareStatement(consultaPrestamo);
+            int filas = ps.executeUpdate();
 
-            psPrestamo.setInt(1, prestamo.getId_lector());
-            psPrestamo.setInt(2, prestamo.getId_libro());
-            psPrestamo.setDate(3, prestamo.getFecha_prestamo());
-            psPrestamo.setDate(4, prestamo.getFecha_devolucion());
-            psPrestamo.setString(5, prestamo.getEstado());
-
-            psPrestamo.executeUpdate();
-
-            PreparedStatement psLibro = cn.prepareStatement(consultaLibro);
-
-            psLibro.setInt(1, prestamo.getId_libro());
-
-            psLibro.executeUpdate();
-
-            cn.commit();
-
-            return true;
+            return filas > 0;
 
         } catch (SQLException e) {
 
+            System.out.println("Error al registrar préstamo.");
             e.printStackTrace();
-
-            return false;
 
         }
 
+        return false;
+
     }
+
 }

@@ -68,17 +68,23 @@ public class LibroDAO {
 
     }
     
-    public ArrayList<Libro> listarLibrosDisponibles() {
+    public ArrayList<Libro> listarLibrosDisponibles(String buscar) {
 
         ArrayList<Libro> listaLibros = new ArrayList<>();
 
         String consulta = "SELECT * FROM libros "
-                + "WHERE activo = 1 AND estado = 'Disponible'";
+                + "WHERE estado = 'Disponible' "
+                + "AND activo = 1 "
+                + "AND (titulo LIKE ? OR autor LIKE ?)";
 
         try (
                 Connection cn = new ConexionMysql().establecerConexion(); PreparedStatement ps = cn.prepareStatement(consulta);) {
-
+            
+            ps.setString(1, "%" + buscar + "%");
+            ps.setString(2, "%" + buscar + "%");
             ResultSet rs = ps.executeQuery();
+            
+            
 
             while (rs.next()) {
 
@@ -264,6 +270,31 @@ public class LibroDAO {
         } catch (SQLException e) {
 
             System.out.println("Error al reincorporar el libro.");
+            e.printStackTrace();
+
+        }
+
+        return false;
+
+    }
+    
+    public boolean actualizarEstadoLibro(int idLibro, String estado) {
+
+        String consulta = "UPDATE libros SET estado = ? WHERE id_libro = ?";
+
+        try (
+                Connection cn = new ConexionMysql().establecerConexion(); PreparedStatement ps = cn.prepareStatement(consulta);) {
+
+            ps.setString(1, estado);
+            ps.setInt(2, idLibro);
+
+            int filas = ps.executeUpdate();
+
+            return filas > 0;
+
+        } catch (SQLException e) {
+
+            System.out.println("Error al actualizar el estado del libro.");
             e.printStackTrace();
 
         }

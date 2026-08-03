@@ -32,117 +32,226 @@
 <div class="container mt-5">
 
     <h2>Registrar Préstamo</h2>
+    
+    
+    <%
+        String mensaje = (String) request.getAttribute("mensaje");
+        
 
-    <hr>
+        if (mensaje != null) {
 
-    <div class="row">
+            String texto = "";
+            String tipo = "success";
 
-        <div class="col-md-5">
+            switch (mensaje) {
 
-            <label class="form-label">
+                case "registrado":
+                    texto = "Préstamo registrado correctamente.";
+                    tipo = "success";
+                    break;
 
-                Documento del lector
+                case "Debe completar todos los campos.":
+                    texto = mensaje;
+                    tipo = "danger";
+                    break;
 
-            </label>
+                case "El lector no existe.":
+                    texto = mensaje;
+                    tipo = "danger";
+                    break;
 
-            <input
-                type="text"
-                class="form-control"
-                placeholder="Ingrese el documento">
+                case "No fue posible registrar el préstamo.":
+                    texto = mensaje;
+                    tipo = "danger";
+                    break;
+                    
+                case "La fecha de devolución no puede ser anterior a la fecha del préstamo.":
+                        texto = mensaje;
+                        tipo = "danger";
+                        break;
 
-        </div>
+            }
+    %>
 
-        <div class="col-md-3">
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
 
-            <label class="form-label">
+        <%= texto%>
 
-                Fecha préstamo
-
-            </label>
-
-            <input
-                type="date"
-                class="form-control">
-
-        </div>
-
-        <div class="col-md-3">
-
-            <label class="form-label">
-
-                Fecha devolución
-
-            </label>
-
-            <input
-                type="date"
-                class="form-control">
-
-        </div>
+        <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="alert">
+        </button>
 
     </div>
 
+    <%
+        }
+    %>
+
     <hr>
 
-    <h4>Libros disponibles</h4>
+    <form action="SvPrestamos" method="POST">
 
-    <table class="table table-bordered table-hover">
+        <div class="row">
 
-        <thead class="table-dark">
+            <div class="col-md-3">
 
-            <tr>
+                <label class="form-label">
+                    Documento del lector
+                </label>
 
-                <th>ID</th>
-                <th>Título</th>
-                <th>Autor</th>
-                <th>Estado</th>
+                <input
+                    type="text"
+                    name="documento"
+                    class="form-control"
+                    placeholder="Ingrese el documento">
 
-            </tr>
+            </div>
 
-        </thead>
+            <div class="col-md-3">
 
-        <tbody>
+                <label>Buscar libro</label>
 
-        <%
-            if (listaLibros.isEmpty()) {
-        %>
+                <input
+                    type="text"
+                    name="buscar"
+                    class="form-control"
+                    placeholder="Título o autor"
+                    value="<%= request.getAttribute("buscar") != null ? request.getAttribute("buscar") : ""%>">
 
-            <tr>
+            </div>
 
-                <td colspan="4" class="text-center">
+            <div class="col-md-2 d-flex align-items-end">
 
-                    No hay libros disponibles.
+                <button
+                    type="submit"
+                    name="accion"
+                    value="buscar"
+                    class="btn btn-primary w-100">
 
-                </td>
+                    Buscar
 
-            </tr>
+                </button>
 
-        <%
-            } else {
+            </div>
 
-                for (Libro libro : listaLibros) {
-        %>
+            <div class="col-md-2">
 
-            <tr>
+                <label class="form-label">
+                    Fecha préstamo
+                </label>
 
-                <td><%= libro.getId_libro()%></td>
+                <input
+                    type="date"
+                    name="fechaPrestamo"
+                    class="form-control">
 
-                <td><%= libro.getTitulo()%></td>
+            </div>
 
-                <td><%= libro.getAutor()%></td>
+            <div class="col-md-2">
 
-                <td><%= libro.getEstado()%></td>
+                <label class="form-label">
+                    Fecha devolución
+                </label>
 
-            </tr>
+                <input
+                    type="date"
+                    name="fechaDevolucion"
+                    class="form-control">
 
-        <%
-                }
-            }
-        %>
+            </div>
 
-        </tbody>
+        </div>
 
-    </table>
+
+
+        <hr>
+
+        <h4>Libros disponibles</h4>
+
+        <table class="table table-bordered table-hover">
+
+            <thead class="table-dark">
+
+                <tr>
+                    <th>Seleccionar</th>
+                    <th>ID</th>
+                    <th>Título</th>
+                    <th>Autor</th>
+                    <th>Estado</th>
+
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+                <%
+                    if (listaLibros.isEmpty()) {
+                %>
+
+                <tr>
+
+                    <td colspan="4" class="text-center">
+
+                        No hay libros disponibles.
+
+                    </td>
+
+                </tr>
+
+                <%
+                } else {
+
+                    for (Libro libro : listaLibros) {
+                %>
+
+                <tr>
+
+                    <td>
+
+                        <input
+                            type="radio"
+                            name="idLibro"
+                            value="<%= libro.getId_libro()%>">
+
+                    </td>
+
+                    <td><%= libro.getId_libro()%></td>
+
+                    <td><%= libro.getTitulo()%></td>
+
+                    <td><%= libro.getAutor()%></td>
+
+                    <td><%= libro.getEstado()%></td>
+
+                </tr>
+
+                <%
+                        }
+                    }
+                %>
+
+            </tbody>
+
+        </table>
+
+        <div class="mt-3">
+
+            <button
+                type="submit"
+                name="accion"
+                value="registrar"
+                class="btn btn-success">
+
+                Registrar préstamo
+
+            </button>
+
+        </div>
+
+    </form>
 
     <a href="menu.jsp" class="btn btn-secondary">
 
@@ -151,7 +260,7 @@
     </a>
 
 </div>
-
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>

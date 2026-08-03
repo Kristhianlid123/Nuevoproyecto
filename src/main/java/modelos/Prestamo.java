@@ -19,20 +19,6 @@ public class Prestamo {
     public Prestamo() {
     }
 
-    public Prestamo(int id_prestamo, int id_lector, int id_libro,
-            Date fecha_prestamo, Date fecha_devolucion,
-            Date fecha_devolucion_real, String estado) {
-
-        this.id_prestamo = id_prestamo;
-        this.id_lector = id_lector;
-        this.id_libro = id_libro;
-        this.fecha_prestamo = fecha_prestamo;
-        this.fecha_devolucion = fecha_devolucion;
-        this.fecha_devolucion_real = fecha_devolucion_real;
-        this.estado = estado;
-
-    }
-
     public int getId_prestamo() {
         return id_prestamo;
     }
