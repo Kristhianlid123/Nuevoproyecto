@@ -306,9 +306,9 @@
                         Registrar devoluciones
                     </div>
 
-                    <button class="btn btn-primary">
+                    <a href="SvDevoluciones" class="btn btn-primary">
                         Entrar
-                    </button>
+                    </a>
 
                 </div>
 

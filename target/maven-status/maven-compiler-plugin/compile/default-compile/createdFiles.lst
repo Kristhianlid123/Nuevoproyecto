@@ -17,6 +17,7 @@ controlador\SvActualizarLibro.class
 dao\ProbarConexion.class
 controlador\SvRetirarLibro.class
 controlador\SvPrestamos.class
+controlador\SvDevoluciones.class
 com\mycompany\proyecto\resources\JakartaEE8Resource.class
 controlador\SvLectores.class
 dao\LectorDAO.class
